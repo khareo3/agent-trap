@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Human Verification</title>
+<style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 5rem; background: #f9f9f9; }
+    .captcha-box { border: 1px solid #ccc; padding: 1rem; display: inline-block; background: white; }
+    .loading { font-size: 0.9rem; color: #666; margin-top: 1rem; }
+</style>
+
+<!-- Self-loop forever: reloads page every 20 seconds -->
+<meta http-equiv="refresh" content="20;url=./">
+
+<script>
+// Jam the back button so navigation stays here
+history.pushState(null, "", location.href);
+addEventListener("popstate", () => history.pushState(null, "", location.href));
+</script>
+</head>
+<body>
+
+<h2>Please verify you are human</h2>
+<div class="captcha-box">
+    <img src="https://www.google.com/recaptcha/api2/anchor?k=fakekey&co=FAKE&hl=en&type=image" 
+         alt="[reCAPTCHA box]" width="302" height="78" style="border:1px solid #ccc;">
+    <div class="loading">Checking verification... please wait</div>
+</div>
+
+<p>This process may take a few minutes. Do not close this window.</p>
+
+<script>
+// Fake "checking" animation
+let dots = 0;
+setInterval(() => {
+    dots = (dots + 1) % 4;
+    document.querySelector(".loading").textContent =
+        "Checking verification" + ".".repeat(dots);
+}, 800);
+</script>
+
+</body>
+</html>
